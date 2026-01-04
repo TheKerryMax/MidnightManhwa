@@ -65,13 +65,8 @@ body::before {
 }
 
 /* =========================
-   LOGO (favicon as icon)
+   LOGO
 ========================= */
-.logo {
-  display: flex;
-  align-items: center;
-}
-
 .logo img {
   width: 40px;
   height: 40px;
@@ -79,25 +74,25 @@ body::before {
 }
 
 /* =========================
-   SEARCH BAR (centered)
+   SEARCH BAR - IMPROVED
 ========================= */
 .search-container {
   flex: 1;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 2rem;
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 30px;
-  padding: 0.4rem 1rem;
-  border: 1px solid rgba(0, 255, 255, 0.2);
+  padding: 0.6rem 1.2rem;
+  border: 1.5px solid rgba(0, 255, 255, 0.25);
   transition: all 0.3s ease;
 }
 
 .search-container:focus-within {
   border-color: #00ffff;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .search-container input {
@@ -106,30 +101,39 @@ body::before {
   outline: none;
   color: #e8ffff;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   width: 100%;
   padding: 0.4rem 0;
 }
 
 .search-container input::placeholder {
-  color: #888;
+  color: #777;
+  font-weight: 300;
 }
 
-.search-container button {
+#searchButton {
   background: none;
   border: none;
   cursor: pointer;
   color: #00ffff;
-  padding: 0.2rem 0.4rem;
-  transition: transform 0.2s ease;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
 }
 
-.search-container button:hover {
-  transform: scale(1.15);
+#searchButton:hover {
+  color: #66ffff;
+}
+
+/* Removed scale animation - clean and static */
+#searchButton:active {
+  transform: none;
 }
 
 .search-container svg {
-  fill: #00ffff;
+  fill: currentColor;
 }
 
 /* =========================
@@ -294,6 +298,11 @@ body::before {
   .search-container {
     margin: 0 1rem;
     max-width: none;
+    padding: 0.5rem 1rem;
+  }
+
+  .search-container input {
+    font-size: 1.05rem;
   }
 
   .logo img {
