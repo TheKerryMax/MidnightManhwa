@@ -74,7 +74,7 @@ body::before {
 }
 
 /* =========================
-   SEARCH BAR - IMPROVED
+   SEARCH BAR - SLIMMER & CLEANER
 ========================= */
 .search-container {
   flex: 1;
@@ -84,14 +84,15 @@ body::before {
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 30px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.4rem 1rem;               /* Slimmer vertical padding */
   border: 1.5px solid rgba(0, 255, 255, 0.25);
   transition: all 0.3s ease;
+  min-height: 44px;                   /* Good tap target on mobile */
 }
 
 .search-container:focus-within {
   border-color: #00ffff;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
   background: rgba(0, 0, 0, 0.7);
 }
 
@@ -101,9 +102,9 @@ body::before {
   outline: none;
   color: #e8ffff;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem;                 /* Slightly smaller */
   width: 100%;
-  padding: 0.4rem 0;
+  padding: 0.3rem 0;
 }
 
 .search-container input::placeholder {
@@ -127,13 +128,23 @@ body::before {
   color: #66ffff;
 }
 
-/* Removed scale animation - clean and static */
 #searchButton:active {
   transform: none;
 }
 
 .search-container svg {
   fill: currentColor;
+}
+
+/* Remove mobile tap highlight (cyan flash) */
+.search-container,
+.search-container input,
+#searchButton,
+.menu-toggle,
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
 }
 
 /* =========================
@@ -298,11 +309,12 @@ body::before {
   .search-container {
     margin: 0 1rem;
     max-width: none;
-    padding: 0.5rem 1rem;
+    padding: 0.35rem 0.9rem;    /* Even slimmer on mobile */
+    min-height: 42px;
   }
 
   .search-container input {
-    font-size: 1.05rem;
+    font-size: 1rem;            /* Prevents iOS zoom on focus */
   }
 
   .logo img {
