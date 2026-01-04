@@ -65,7 +65,7 @@ body {
   display: none;
   font-size: 1.8rem;
   color: #00ffff;
-  cursor: pointer;
+  cursor: progress;
 }
 
 /* =========================
