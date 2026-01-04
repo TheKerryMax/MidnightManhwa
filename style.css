@@ -35,6 +35,8 @@ body {
   background: #000;
   padding: 1rem;
   border-bottom: 1px solid #222;
+  position: relative;
+  z-index: 100;
 }
 
 .logo {
@@ -63,9 +65,38 @@ body {
 ========================= */
 .menu-toggle {
   display: none;
-  font-size: 1.8rem;
-  color: #00ffff;
-  cursor: progress;
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  background-color: #00ffff;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle span.middle {
+  width: 60%;    /* middle bar shorter */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hamburger animation when open */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;   /* middle disappears */
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* =========================
@@ -105,7 +136,7 @@ body {
 
 .card img {
   width: 100%;
-  height: auto;           /* <-- responsive height */
+  height: auto;      /* responsive image */
   display: block;
   object-fit: cover;
 }
@@ -137,11 +168,10 @@ body {
     display: block;
   }
 
-  /* Mobile menu as a centered overlay */
   .nav-links {
     display: none;
     position: absolute;
-    top: 70px; /* below navbar */
+    top: 70px;
     right: 1rem;
     background: #000;
     padding: 0.5rem 1rem;
@@ -166,7 +196,7 @@ body {
     display: block;
   }
 
-  /* Optional: make hero content smaller on mobile */
+  /* Hero */
   .hero h1 {
     font-size: 1.6rem;
   }
@@ -175,7 +205,7 @@ body {
     font-size: 0.95rem;
   }
 
-  /* Adjust manhwa grid for mobile */
+  /* Manhwa grid */
   .manhwa-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 1rem;
