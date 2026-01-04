@@ -9,12 +9,12 @@
 
 body {
   background-color: #0a0f1c;
-  background: linear-gradient(135deg, #0a0f1c 0%, #1a0033 100%);
+  background-size: cover;
   background-attachment: fixed;
+  background-position: center;
   color: #e8ffff;
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 h1, h3, .logo {
@@ -25,29 +25,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Subtle animated background glow */
+/* Dark overlay for readability */
 body::before {
   content: '';
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: radial-gradient(circle at center, rgba(0, 255, 255, 0.05) 0%, transparent 70%);
-  z-index: -1;
-  animation: pulse 20s infinite alternate;
-}
-
-@keyframes pulse {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.6; }
-}
-
-/* Dark overlay */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(10, 15, 28, 0.8);
+  background: rgba(10, 15, 28, 0.85);
   z-index: -1;
 }
 
@@ -55,188 +39,235 @@ body::after {
    APP CONTAINER
 ========================= */
 .app {
-  max-width: 1300px;
+  max-width: 1200px;
   margin: auto;
   padding: 1rem;
-  padding-top: 2rem; /* extra top space since navbar is now fully floating */
 }
 
 /* =========================
-   NAVBAR (NOW FULLY ROUNDED ALL 4 CORNERS - PILL SHAPE)
+   NAVBAR (FIXED: Rounded bottom corners + premium glass effect)
 ========================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 1.2rem 2.5rem;
-  border: 1px solid rgba(0, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.45);                 /* more transparent */
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
   position: relative;
   z-index: 1000;
-  box-shadow: 0 8px 40px rgba(0, 255, 255, 0.2);
-  backdrop-filter: blur(15px);
-  border-radius: 50px; /* FULLY rounded all corners - pill/capsule shape */
-  margin: 1rem auto 3rem; /* center it + space top/bottom */
-  max-width: 1100px;
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15); /* softer cyan glow */
+  backdrop-filter: blur(12px);                     /* stronger frosted glass */
+  border-radius: 0 0 20px 20px;                     /* rounded bottom corners only */
+  margin: 0 1rem 2rem;                             /* pull in from sides + space below */
+  max-width: 1200px;                               /* matches .app */
 }
 
 .logo {
   color: #00ffff;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  text-shadow: 0 0 20px #00ffff;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
 }
 
 .nav-links a {
   color: #ccc;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.4s;
-  position: relative;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #00ffff;
-  transition: width 0.4s;
-  box-shadow: 0 0 10px #00ffff;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-/* Hamburger - neon style */
-.menu-toggle span {
-  background-color: #00ffff;
-  box-shadow: 0 0 10px #00ffff;
 }
 
 /* =========================
-   HERO (Epic Glow)
+   HAMBURGER MENU
+========================= */
+.menu-toggle {
+  display: none;
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  background-color: #00ffff;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle span.middle {
+  width: 60%;
+  margin-left: auto;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* =========================
+   HERO
 ========================= */
 .hero {
   text-align: center;
-  padding: 8rem 1rem 6rem;
-  position: relative;
+  padding: 6rem 1rem 4rem;
 }
 
 .hero h1 {
-  font-size: 5rem;
+  font-size: 3.5rem;
   color: #00ffff;
-  text-shadow: 
-    0 0 20px #00ffff,
-    0 0 40px #00ffff,
-    0 0 60px #00ffff,
-    0 0 100px #00ffff;
-  margin-bottom: 1rem;
-  animation: neonPulse 4s infinite alternate;
-}
-
-@keyframes neonPulse {
-  0% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-  100% { text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff, 0 0 100px #00ffff, 0 0 140px #00ffff; }
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  margin-bottom: 0.5rem;
 }
 
 .hero p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #aaa;
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* =========================
-   MANHWA GRID (Holographic Cards)
+   MANHWA GRID
 ========================= */
 .manhwa-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-  padding: 3rem 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.8rem;
+  padding: 2rem 1rem;
 }
 
 .card {
-  background: rgba(5, 8, 18, 0.6);
-  border-radius: 16px;
+  background: #050812;
+  border-radius: 12px;
   overflow: hidden;
   position: relative;
-  height: 360px;
+  height: 320px;
   cursor: pointer;
-  transition: all 0.5s ease;
-  border: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: -2px; left: -2px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  background: linear-gradient(45deg, transparent, #00ffff, transparent);
-  opacity: 0;
-  transition: opacity 0.5s;
-  border-radius: 16px;
-}
-
-.card:hover::before {
-  opacity: 1;
-  animation: shine 2s infinite;
-}
-
-@keyframes shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  transition: all 0.4s ease;
 }
 
 .card img {
-  transition: transform 0.8s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .card:hover img {
-  transform: scale(1.15);
+  transform: scale(1.1);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(transparent, #050812);
+  pointer-events: none;
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 2.8rem;
+  left: 1rem;
+  font-size: 1.2rem;
+  color: #00ffff;
+  text-shadow: 0 2px 10px #000;
+  z-index: 1;
+}
+
+.card span {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1rem;
+  font-size: 0.9rem;
+  color: #ccc;
+  z-index: 1;
 }
 
 .card:hover {
-  transform: translateY(-20px) scale(1.05);
-  box-shadow: 
-    0 20px 50px rgba(0, 255, 255, 0.4),
-    0 0 60px rgba(0, 255, 255, 0.2);
-  border-color: #00ffff;
-}
-
-.card h3, .card span {
-  text-shadow: 0 0 15px #000;
-  transition: all 0.4s;
-}
-
-.card:hover h3 {
-  color: #00ffff;
-  text-shadow: 0 0 20px #00ffff;
+  transform: translateY(-12px);
+  box-shadow: 0 15px 35px rgba(0, 255, 255, 0.35);
 }
 
 /* =========================
-   MOBILE
+   MOBILE RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 1rem 1.5rem;
-    margin: 1rem 0.5rem 2rem;
-    border-radius: 40px;
+  .menu-toggle {
+    display: block;
   }
 
-  .hero h1 { font-size: 3.5rem; }
-  .hero p { font-size: 1.2rem; }
-  .manhwa-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.5rem; }
-  .card { height: 300px; }
+  .navbar {
+    margin: 0 0.5rem 2rem;               /* adjust for mobile */
+    padding: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;                 /* softer rounded dropdown */
+    flex-direction: column;
+    gap: 0.8rem;
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .manhwa-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .card {
+    height: 280px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    bottom: 2.5rem;
+  }
+
+  .card span {
+    font-size: 0.85rem;
+  }
 }
