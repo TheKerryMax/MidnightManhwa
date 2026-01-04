@@ -58,25 +58,26 @@ body::after {
   max-width: 1300px;
   margin: auto;
   padding: 1rem;
+  padding-top: 2rem; /* extra top space since navbar is now fully floating */
 }
 
 /* =========================
-   NAVBAR (Holographic Glass)
+   NAVBAR (NOW FULLY ROUNDED ALL 4 CORNERS - PILL SHAPE)
 ========================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: rgba(0, 0, 0, 0.3);
-  padding: 1.2rem 2rem;
+  padding: 1.2rem 2.5rem;
   border: 1px solid rgba(0, 255, 255, 0.3);
   position: relative;
   z-index: 1000;
   box-shadow: 0 8px 40px rgba(0, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  border-radius: 0 0 30px 30px;
-  margin: 0 1rem 3rem;
-  max-width: 1300px;
+  border-radius: 50px; /* FULLY rounded all corners - pill/capsule shape */
+  margin: 1rem auto 3rem; /* center it + space top/bottom */
+  max-width: 1100px;
 }
 
 .logo {
@@ -228,9 +229,14 @@ body::after {
    MOBILE
 ========================= */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+    margin: 1rem 0.5rem 2rem;
+    border-radius: 40px;
+  }
+
   .hero h1 { font-size: 3.5rem; }
   .hero p { font-size: 1.2rem; }
   .manhwa-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.5rem; }
   .card { height: 300px; }
-  .navbar { padding: 1rem; margin: 0 0.5rem 2rem; }
 }
