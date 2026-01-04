@@ -84,10 +84,10 @@ body::before {
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 30px;
-  padding: 0.4rem 1rem;               /* Slimmer vertical padding */
+  padding: 0.4rem 1rem;
   border: 1.5px solid rgba(0, 255, 255, 0.25);
   transition: all 0.3s ease;
-  min-height: 44px;                   /* Good tap target on mobile */
+  min-height: 44px;
 }
 
 .search-container:focus-within {
@@ -99,10 +99,10 @@ body::before {
 .search-container input {
   background: transparent;
   border: none;
-  outline: none;
+  outline: none !important;           /* Force remove outline */
   color: #e8ffff;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.05rem;                 /* Slightly smaller */
+  font-size: 1.05rem;
   width: 100%;
   padding: 0.3rem 0;
 }
@@ -122,6 +122,7 @@ body::before {
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease;
+  outline: none;                      /* Remove outline on button */
 }
 
 #searchButton:hover {
@@ -136,15 +137,16 @@ body::before {
   fill: currentColor;
 }
 
-/* Remove mobile tap highlight (cyan flash) */
+/* Remove mobile tap highlight (cyan flash) + focus outlines */
 .search-container,
 .search-container input,
 #searchButton,
 .menu-toggle,
+.menu-toggle span,
 a,
 button {
-  -webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;   /* Only this is needed for tap flash */
+  outline: none;                              /* Removes yellow/orange focus rings */
 }
 
 /* =========================
@@ -309,12 +311,12 @@ button {
   .search-container {
     margin: 0 1rem;
     max-width: none;
-    padding: 0.35rem 0.9rem;    /* Even slimmer on mobile */
+    padding: 0.35rem 0.9rem;
     min-height: 42px;
   }
 
   .search-container input {
-    font-size: 1rem;            /* Prevents iOS zoom on focus */
+    font-size: 1rem;
   }
 
   .logo img {
