@@ -3,7 +3,7 @@
 ========================= */
 * {
   margin: 0;
-  padding: 0 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -64,13 +64,22 @@ body::before {
   backdrop-filter: blur(12px);
 }
 
-/* Spacer to balance centering when menu is on left */
-.navbar-spacer {
-  width: 30px;
+/* =========================
+   LOGO (favicon as icon)
+========================= */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 /* =========================
-   SEARCH BAR - Centered
+   SEARCH BAR (centered)
 ========================= */
 .search-container {
   flex: 1;
@@ -283,12 +292,13 @@ body::before {
   }
 
   .search-container {
-    margin: 0 1.5rem;
+    margin: 0 1rem;
     max-width: none;
   }
 
-  .navbar-spacer {
-    display: none;
+  .logo img {
+    width: 36px;
+    height: 36px;
   }
 
   .nav-links {

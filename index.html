@@ -14,15 +14,14 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-      <div class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span class="middle"></span>
-        <span></span>
+      <!-- Logo (using favicon) -->
+      <div class="logo">
+        <img src="favicon.ico" alt="Midnight Manhwa Logo">
       </div>
 
-      <!-- Single Search Bar - Centered on desktop, centered on mobile -->
+      <!-- Search Bar (centered) -->
       <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search Midnight Manhwa..." />
+        <input type="text" id="searchInput" placeholder="Search Manhwa..." />
         <button type="submit">
           <svg viewBox="0 0 24 24" width="20" height="20">
             <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.47 6.47 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.01 7c.34 2.8 2.56 5.12 5.34 5.59a6.47 6.47 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -30,9 +29,14 @@
         </button>
       </div>
 
-      <!-- Empty div for spacing balance on desktop (optional, keeps centering clean) -->
-      <div class="navbar-spacer"></div>
+      <!-- Hamburger Menu (right) -->
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span class="middle"></span>
+        <span></span>
+      </div>
 
+      <!-- Dropdown Menu -->
       <ul class="nav-links" id="navLinks">
         <li><a href="#" class="active">Home</a></li>
         <li><a href="#">Genres</a></li>
