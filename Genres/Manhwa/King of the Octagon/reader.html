@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>King of the Octagon | Midnight Manhwa</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../style.css">
   <style>
     body { background: #0a0a0a; margin: 0; }
     #chapter-title { text-align: center; padding: 80px 20px 30px; color: #00ffff; font-family: 'Orbitron'; font-size: 2.8em; text-shadow: 0 0 25px #00ffff; }
@@ -37,7 +37,6 @@
 
     document.getElementById('chapter-title').textContent = `King of the Octagon - Chapter ${chapter}`;
 
-    // Correct relative path from inside the deep folder
     const baseFolder = `chapter (${chapter})/`;
     const reader = document.getElementById('reader');
     const totalPages = 10;
@@ -51,7 +50,6 @@
       reader.appendChild(img);
     }
 
-    // Navigation (stays inside the same folder)
     document.getElementById('prev').onclick = () => chapter > 1 && (location.href = `reader.html?chapter=${chapter-1}`);
     document.getElementById('next').onclick = () => chapter < maxChapter && (location.href = `reader.html?chapter=${chapter+1}`);
     document.getElementById('home').onclick = () => location.href = '../../../index.html';
