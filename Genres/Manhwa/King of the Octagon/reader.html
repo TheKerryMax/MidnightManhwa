@@ -13,23 +13,30 @@
       margin: 0;
       padding: 0;
       overflow-y: scroll;
-      scroll-behavior: smooth; /* smooth scroll for seamless feel */
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
     }
 
+    /* Chapter title */
     #chapter-title {
-      text-align: center;
-      padding: 80px 20px 20px;
-      color: #00ffff;
-      font-family: 'Orbitron';
-      font-size: 2.8em;
-      text-shadow: 0 0 25px #00ffff;
+     display: flex;
+     justify-content: center; /* horizontal center */
+     align-items: center;     /* vertical center */
+     height: 60px;            /* fixed height for the top bar */
+     color: #00ffff;
+     font-family: 'Orbitron', sans-serif;
+     font-size: 1.8em;
+      text-shadow: 0 0 15px #00ffff;
       margin: 0;
       position: sticky;
       top: 0;
-      background: #0a0a0a;
+     background: #0a0a0a;
       z-index: 10;
+     transition: opacity 0.3s;
+     padding: 0 20px; /* horizontal padding */
     }
 
+    /* Reader container */
     #reader {
       max-width: 900px;
       margin: 0 auto;
@@ -46,18 +53,20 @@
       box-shadow: none;
     }
 
+    /* Navigation buttons */
     #nav {
       position: fixed;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(10,15,28,0.9);
-      padding: 15px 40px;
-      border-radius: 50px;
-      backdrop-filter: blur(15px);
-      border: 2px solid #00ffff;
+      background: rgba(10,15,28,0.7);
+      padding: 8px 20px; /* smaller */
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      border: 1px solid #00ffff;
       display: flex;
-      gap: 12px;
+      gap: 10px;
+      align-items: center; /* vertically center text and arrow */
       transition: opacity 0.3s;
       z-index: 20;
     }
@@ -68,11 +77,14 @@
     }
 
     #nav button {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* space between arrow and text */
       background: transparent;
       color: #00ffff;
       border: none;
-      padding: 12px 25px;
-      font-size: 1.3em;
+      padding: 6px 12px;
+      font-size: 1em;
       font-weight: bold;
       cursor: pointer;
       transition: color 0.2s, text-shadow 0.2s;
@@ -80,8 +92,18 @@
 
     #nav button:hover {
       color: white;
-      text-shadow: 0 0 15px #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
+
+    /* Custom arrows using CSS */
+    .arrow-left::before {
+      content: "⟵"; /* left arrow */
+    }
+
+    .arrow-right::after {
+      content: "⟶"; /* right arrow */
+    }
+
   </style>
 </head>
 <body>
@@ -90,9 +112,9 @@
   <div id="reader"></div>
 
   <div id="nav">
-    <button id="prev">← Prev</button>
+    <button id="prev" class="arrow-left">Prev</button>
     <button id="chapters">Chapters</button>
-    <button id="next">Next →</button>
+    <button id="next" class="arrow-right">Next</button>
   </div>
 
   <script>
@@ -100,7 +122,8 @@
     let chapter = parseInt(params.get('chapter')) || 1;
     const maxChapter = 3;
 
-    document.getElementById('chapter-title').textContent = `King of the Octagon - Chapter ${chapter}`;
+    const chapterTitle = document.getElementById('chapter-title');
+    chapterTitle.textContent = `King of the Octagon - Chapter ${chapter}`;
 
     const baseFolder = `chapter (${chapter})/`;
     const reader = document.getElementById('reader');
@@ -116,10 +139,11 @@
       reader.appendChild(img);
     }
 
-    // Navigation
+    // Navigation buttons
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
     const chaptersBtn = document.getElementById('chapters');
+    const nav = document.getElementById('nav');
 
     prevBtn.onclick = () => chapter > 1 && (location.href = `reader.html?chapter=${chapter-1}`);
     nextBtn.onclick = () => chapter < maxChapter && (location.href = `reader.html?chapter=${chapter+1}`);
@@ -128,15 +152,14 @@
     prevBtn.disabled = chapter <= 1;
     nextBtn.disabled = chapter >= maxChapter;
 
-    // Fullscreen toggle for nav
-    const nav = document.getElementById('nav');
+    // Double-tap to hide/show nav + chapter title
     let lastTap = 0;
-
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', () => {
       const currentTime = new Date().getTime();
       const tapLength = currentTime - lastTap;
-      if (tapLength < 300 && tapLength > 0) { // double-tap detected
+      if (tapLength < 300 && tapLength > 0) {
         nav.classList.toggle('hidden');
+        chapterTitle.style.opacity = nav.classList.contains('hidden') ? '0' : '1';
       }
       lastTap = currentTime;
     });
