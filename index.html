@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -137,7 +137,7 @@
     <!-- FAKE MANHWA -->
     <div class="card coming-soon">
       <span class="lock-icon">🔒</span>
-      <img src="Images/cover1.jpg" alt="Locked">
+      <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
       <div class="card-title-overlay">
         <span>New Manhwa</span>
       </div>
@@ -145,7 +145,7 @@
 
     <div class="card coming-soon">
       <span class="lock-icon">🔒</span>
-      <img src="Images/cover2.jpg" alt="Locked">
+      <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
       <div class="card-title-overlay">
         <span>New Manhwa</span>
       </div>
@@ -187,6 +187,27 @@
   menuToggle.addEventListener("click", () => {
     menuToggle.classList.toggle("active");
     navLinks.classList.toggle("show");
+  });
+
+  /* =========================
+     LIVE SEARCH FOR MANHWA CARDS
+  ========================= */
+  const searchInput = document.getElementById("searchInput");
+  const manhwaCards = document.querySelectorAll(".manhwa-grid .card");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+
+    manhwaCards.forEach(card => {
+      const titleSpan = card.querySelector(".card-title-overlay span");
+      const title = titleSpan.textContent.toLowerCase();
+
+      if (title.includes(query)) {
+        card.style.display = ""; // show card
+      } else {
+        card.style.display = "none"; // hide card
+      }
+    });
   });
 </script>
 
