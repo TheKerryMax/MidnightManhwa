@@ -11,10 +11,9 @@
   <!-- Favicon -->
   <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
 
-  <!-- Global CSS (will be overridden) -->
+  <!-- Global CSS (overridden safely) -->
   <link rel="stylesheet" href="../../../style.css">
 
-  <!-- READER OVERRIDE STYLES -->
   <style>
     /* =========================
        HARD RESET FOR READER
@@ -28,7 +27,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Kill global overlay */
     body::before {
       display: none !important;
       content: none !important;
@@ -45,17 +43,17 @@
       align-items: center;
       justify-content: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       color: #00ffff;
       background: #0a0a0a;
-      text-shadow: 0 0 12px #00ffff;
+      text-shadow: 0 0 10px #00ffff;
       z-index: 50;
       transition: opacity 0.25s ease;
       user-select: none;
     }
 
     /* =========================
-       READER IMAGE STACK
+       READER STACK
     ========================= */
     #reader {
       max-width: 900px;
@@ -72,7 +70,7 @@
     }
 
     /* =========================
-       NAVIGATION BAR
+       NAV BAR
     ========================= */
     #nav {
       position: fixed;
@@ -101,7 +99,6 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: color 0.2s, text-shadow 0.2s;
     }
 
     #nav button:hover {
@@ -109,7 +106,6 @@
       text-shadow: 0 0 10px #00ffff;
     }
 
-    /* Custom arrows */
     .prev::before { content: "⟵"; }
     .next::after { content: "⟶"; }
 
@@ -122,23 +118,21 @@
     }
 
     /* =========================
-       MOBILE TWEAKS
+       MOBILE
     ========================= */
     @media (max-width: 768px) {
       #chapter-title {
-        font-size: 1.25rem;
-        height: 48px;
+        font-size: 1.1rem;
+        height: 46px;
       }
 
       #nav {
         bottom: 10px;
         padding: 5px 12px;
-        gap: 6px;
       }
 
       #nav button {
         font-size: 0.85rem;
-        padding: 3px 8px;
       }
     }
   </style>
@@ -146,13 +140,13 @@
 
 <body>
 
-  <!-- CHAPTER TITLE -->
+  <!-- TITLE -->
   <div id="chapter-title"></div>
 
   <!-- READER -->
   <div id="reader"></div>
 
-  <!-- NAVIGATION -->
+  <!-- NAV -->
   <div id="nav">
     <button id="prev" class="prev">Prev</button>
     <button id="chapters">Chapters</button>
@@ -161,7 +155,7 @@
 
   <script>
     /* =========================
-       CHAPTER SETUP
+       CHAPTER CONFIG
     ========================= */
     const params = new URLSearchParams(location.search);
     let chapter = parseInt(params.get("chapter")) || 1;
@@ -174,26 +168,50 @@
     const reader = document.getElementById("reader");
     const baseFolder = `chapter (${chapter})/`;
 
-    /* Load pages */
-    for (let i = 1; i <= totalPages; i++) {
+    /* =========================
+       SMART IMAGE LOADER
+       (jpg → png → jpeg)
+    ========================= */
+    function loadPage(page) {
       const img = document.createElement("img");
-      img.src = `${baseFolder}page (${i}).jpg`;
       img.className = "page-img";
       img.loading = "lazy";
+
+      const formats = ["jpg", "png", "jpeg"];
+      let index = 0;
+
+      function tryNext() {
+        if (index >= formats.length) {
+          img.remove();
+          return;
+        }
+        img.src = `${baseFolder}page (${page}).${formats[index++]}`;
+      }
+
+      img.onerror = tryNext;
+      tryNext();
+
       reader.appendChild(img);
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      loadPage(i);
     }
 
     /* =========================
        NAVIGATION
     ========================= */
-    document.getElementById("prev").onclick = () =>
-      chapter > 1 && (location.href = `reader.html?chapter=${chapter - 1}`);
+    document.getElementById("prev").onclick = () => {
+      if (chapter > 1) location.href = `reader.html?chapter=${chapter - 1}`;
+    };
 
-    document.getElementById("next").onclick = () =>
-      chapter < maxChapter && (location.href = `reader.html?chapter=${chapter + 1}`);
+    document.getElementById("next").onclick = () => {
+      if (chapter < maxChapter) location.href = `reader.html?chapter=${chapter + 1}`;
+    };
 
-    document.getElementById("chapters").onclick = () =>
+    document.getElementById("chapters").onclick = () => {
       location.href = "chapters.html";
+    };
 
     /* =========================
        DOUBLE TAP FULLSCREEN
