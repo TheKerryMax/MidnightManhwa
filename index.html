@@ -114,6 +114,7 @@ html {
   display: flex;
   list-style: none;
   gap: 2rem;
+  align-items: center;
 }
 
 .nav-links a {
@@ -238,35 +239,53 @@ html {
 /* MOBILE */
 .menu-toggle {
   display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  background-color: #00ffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle span.middle {
+  width: 60%;
+  margin-left: auto;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px,5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px,-6px);
 }
 
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
   .nav-links {
     display: none;
     position: absolute;
     top: 80px;
-    right: 1rem;
+    right: 0.5rem;
     flex-direction: column;
     background: rgba(0,0,0,0.9);
     padding: 1.2rem;
     border-radius: 16px;
+    width: 90%;
+    max-width: 300px;
   }
-
   .nav-links.show {
     display: flex;
-  }
-
-  .search-container {
-    max-width: none;
-    padding: 0.35rem 0.9rem;
-  }
-
-  .search-container input {
-    font-size: 1rem;
   }
 }
 </style>
@@ -275,76 +294,70 @@ html {
 <body>
 <div class="app">
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">
-      <img src="favicon.ico" alt="Midnight Manhwa Logo">
-    </div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="favicon.ico" alt="Midnight Manhwa Logo">
+  </div>
 
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search..." />
-      <button type="button" id="searchButton">
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path fill="currentColor"
-            d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l4.2 4.2a1 1 0 0 0 1.4-1.4L15.5 14zM10 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-        </svg>
-      </button>
-    </div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search..." />
+    <button type="button" id="searchButton">
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path fill="currentColor"
+          d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l4.2 4.2a1 1 0 0 0 1.4-1.4L15.5 14zM10 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+      </svg>
+    </button>
+  </div>
 
-    <div class="menu-toggle" id="menuToggle">
-      <span></span><span class="middle"></span><span></span>
-    </div>
+  <div class="menu-toggle" id="menuToggle">
+    <span></span><span class="middle"></span><span></span>
+  </div>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#" class="active">Home</a></li>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" class="active">Home</a></li>
+    <li class="genre-menu">
+      <a href="#" id="genreToggle">Genres ▾</a>
+      <ul class="genre-dropdown">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Fantasy</a></li>
+        <li><a href="#">Martial Arts</a></li>
+      </ul>
+    </li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
 
-      <li class="genre-menu">
-        <a href="#" id="genreToggle">Genres ▾</a>
-        <ul class="genre-dropdown">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Fantasy</a></li>
-          <li><a href="#">Martial Arts</a></li>
-        </ul>
-      </li>
+<!-- HERO -->
+<section class="hero">
+  <h1>Midnight Manhwa</h1>
+  <p>Read dark fantasy, action, and mystery manhwa.</p>
+</section>
 
-      <li><a href="#">About</a></li>
-    </ul>
-  </nav>
+<!-- MANHWA GRID -->
+<section class="manhwa-grid">
+  <a href="Genres/Manhwa/King%20of%20the%20Octagon/chapters.html"
+     class="card manhwa-link"
+     data-title="king of the octagon">
+    <img src="Images/king-of-octagon-cover.jpg" alt="King of the Octagon">
+    <div class="card-title-overlay"><span>King of the Octagon</span></div>
+  </a>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Midnight Manhwa</h1>
-    <p>Read dark fantasy, action, and mystery manhwa.</p>
-  </section>
-
-  <!-- MANHWA GRID -->
-  <section class="manhwa-grid">
-    <!-- REAL MANHWA -->
-    <a href="Genres/Manhwa/King%20of%20the%20Octagon/chapters.html"
-       class="card manhwa-link"
-       data-title="king of the octagon">
-      <img src="Images/king-of-octagon-cover.jpg" alt="King of the Octagon">
-      <div class="card-title-overlay"><span>King of the Octagon</span></div>
-    </a>
-
-    <!-- LOCKED MANHWA -->
-    <div class="card coming-soon locked">
-      <span class="lock-icon">🔒</span>
-      <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
-      <div class="card-title-overlay"><span>New Manhwa</span></div>
-    </div>
-    <div class="card coming-soon locked">
-      <span class="lock-icon">🔒</span>
-      <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
-      <div class="card-title-overlay"><span>New Manhwa</span></div>
-    </div>
-  </section>
+  <div class="card coming-soon locked">
+    <span class="lock-icon">🔒</span>
+    <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
+    <div class="card-title-overlay"><span>New Manhwa</span></div>
+  </div>
+  <div class="card coming-soon locked">
+    <span class="lock-icon">🔒</span>
+    <img src="Images/king-of-octagon-cover.jpg" alt="Locked">
+    <div class="card-title-overlay"><span>New Manhwa</span></div>
+  </div>
+</section>
 </div>
 
 <script>
-/* =========================
-   SEARCH SYSTEM
-========================= */
+/* SEARCH SYSTEM */
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 
@@ -366,9 +379,7 @@ function performSearch() {
 searchInput.addEventListener("input", performSearch);
 searchButton.addEventListener("click", performSearch);
 
-/* =========================
-   DOUBLE TAP CARD PREVIEW
-========================= */
+/* DOUBLE TAP CARD PREVIEW */
 document.querySelectorAll(".manhwa-link").forEach(card => {
   let tapped = false;
   card.addEventListener("click", e => {
@@ -384,9 +395,7 @@ document.querySelectorAll(".manhwa-link").forEach(card => {
   });
 });
 
-/* =========================
-   GENRE MENU CLICK FIX
-========================= */
+/* GENRE MENU CLICK FIX */
 const genreToggle = document.getElementById("genreToggle");
 const genreDropdown = genreToggle.nextElementSibling;
 let genreOpen = false;
@@ -404,16 +413,14 @@ document.addEventListener("click", e => {
   }
 });
 
-/* =========================
-   MOBILE NAV
-========================= */
+/* MOBILE MENU TOGGLE */
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
+
 menuToggle.addEventListener("click", () => {
   menuToggle.classList.toggle("active");
   navLinks.classList.toggle("show");
 });
 </script>
-
 </body>
 </html>
