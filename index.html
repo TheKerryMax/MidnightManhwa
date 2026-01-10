@@ -85,11 +85,16 @@
     }
 
     /* =========================
-       HERO TITLE FIX
+       HERO TITLE & SECTION FIX
     ========================= */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+    }
+
     .hero h1 {
-      font-size: 2.8rem;        /* smaller than before */
-      line-height: 1.1;         /* tighter spacing */
+      font-size: 2.8rem;
+      line-height: 1.1;
       color: #00ffff;
       text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
       margin-bottom: 0.5rem;
@@ -97,13 +102,68 @@
       white-space: normal;
     }
 
+    .hero p {
+      font-size: 1.2rem;
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     /* MOBILE HERO TITLE: one line */
     @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 1rem 1.5rem;
+      }
+
       .hero h1 {
         font-size: 2rem;
-        white-space: nowrap;      /* force one line */
+        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;  /* add ... if too long */
+        text-overflow: ellipsis;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    /* =========================
+       EASTER EGG TEXT + ANIMATION
+    ========================= */
+    #easterEggMessage {
+      display: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: #00ffff;
+      text-align: center;
+      margin-top: 2rem;
+      text-shadow: 0 0 15px #00ffff, 0 2px 10px #000;
+
+      /* Animation */
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1.5s ease;
+    }
+
+    #easterEggMessage.show {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+      animation: bounceGlow 3s infinite alternate;
+    }
+
+    @keyframes bounceGlow {
+      0% {
+        transform: scale(0.95);
+        text-shadow: 0 0 8px #00ffff, 0 2px 6px #000;
+      }
+      50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 20px #00ffff, 0 4px 12px #000;
+      }
+      100% {
+        transform: scale(1);
+        text-shadow: 0 0 12px #00ffff, 0 2px 6px #000;
       }
     }
   </style>
@@ -184,6 +244,9 @@
 
   </section>
 
+  <!-- EASTER EGG MESSAGE -->
+  <div id="easterEggMessage">I Love Thin Nadi Soe, So Much</div>
+
 </div>
 
 <script>
@@ -213,22 +276,32 @@
   });
 
   /* =========================
-     LIVE SEARCH FOR MANHWA CARDS
+     LIVE SEARCH FOR MANHWA CARDS + EASTER EGG
   ========================= */
   const searchInput = document.getElementById("searchInput");
   const manhwaCards = document.querySelectorAll(".manhwa-grid .card");
+  const easterEggMessage = document.getElementById("easterEggMessage");
 
   searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
+    const query = searchInput.value.trim();
 
+    // Easter egg check
+    if (query === "Swt & Tnds") {
+      easterEggMessage.classList.add("show");
+    } else {
+      easterEggMessage.classList.remove("show");
+    }
+
+    // Normal live search
+    const lowerQuery = query.toLowerCase();
     manhwaCards.forEach(card => {
       const titleSpan = card.querySelector(".card-title-overlay span");
       const title = titleSpan.textContent.toLowerCase();
 
-      if (title.includes(query)) {
-        card.style.display = ""; // show card
+      if (title.includes(lowerQuery)) {
+        card.style.display = "";
       } else {
-        card.style.display = "none"; // hide card
+        card.style.display = "none";
       }
     });
   });
