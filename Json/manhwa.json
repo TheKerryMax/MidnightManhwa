@@ -1,0 +1,72 @@
+[
+  {
+    "title": "King of the Octagon",
+    "image": "Images/king-of-octagon-cover.jpg",
+    "link": "Genres/Manhwa/King%20of%20the%20Octagon/chapters.html",
+    "locked": false,
+    "genre": "Action"
+  },
+  {
+    "title": "Shadow Dragon",
+    "image": "Images/cover1.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Fantasy"
+  },
+  {
+    "title": "Moonlight Sonata",
+    "image": "Images/cover2.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Romance"
+  },
+  {
+    "title": "Blood Harvest",
+    "image": "Images/cover3.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Horror"
+  },
+  {
+    "title": "Cyber Ninja",
+    "image": "Images/cover4.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Sci-Fi"
+  },
+  {
+    "title": "Eternal Night",
+    "image": "Images/cover1.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Action"
+  },
+  {
+    "title": "Ghost of the Abyss",
+    "image": "Images/cover2.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Horror"
+  },
+  {
+    "title": "Dragon’s Wrath",
+    "image": "Images/cover3.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Fantasy"
+  },
+  {
+    "title": "Silver Blade",
+    "image": "Images/cover4.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Action"
+  },
+  {
+    "title": "Vampire Kiss",
+    "image": "Images/cover1.jpg",
+    "link": "#",
+    "locked": true,
+    "genre": "Romance"
+  }
+]
