@@ -20,43 +20,41 @@ a{text-decoration:none;color:inherit;}
 ========================= */
 .topbar{
   display:flex;justify-content:space-between;align-items:center;
-  padding:0.5rem 1rem; /* shorter navbar vertically */
+  padding:0.5rem 1rem;
   position:sticky;top:0;background:#070707;z-index:100;
   box-shadow:0 2px 12px rgba(0,255,255,0.1);
 }
 
 .hero-title{
   font-family:'Orbitron',sans-serif;
-  font-size:2rem; /* smaller than before */
-  background:linear-gradient(90deg,#00ffff,#00dfff,#00aaff);
-  text-shadow:0 0 15px #0ff,0 2px 6px #000;
-  transition:0.3s;
-  white-space:nowrap; /* force single line */
+  font-size:2.5rem;
+  color:#00ffff; /* old UI color */
+  text-shadow:0 0 20px rgba(0,255,255,0.5);
+  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
   cursor:default;
+  transition:0.3s;
 }
 
 .topbar-left, .topbar-right{
   display:flex;align-items:center;gap:0.5rem;
 }
 
-/* SEARCH ICON + MAGICAL SEARCH BAR */
+/* SEARCH ICON + EXPANDING SEARCH BAR */
 #searchIcon{
-  font-size:1.6rem;color:#0ff;cursor:pointer;
-  transition:0.3s;
+  font-size:1.6rem;color:#00ffff;cursor:pointer;transition:0.3s;
 }
-
 #searchInput{
   width:0; opacity:0; padding:0.4rem 1rem; border-radius:50px; border:none; outline:none;
-  background:#111; color:#0ff; transition:0.5s ease; margin-left:0.5rem;
+  background:#111; color:#00ffff; transition:0.5s ease; margin-left:0.5rem;
   box-shadow:0 0 10px rgba(0,255,255,0.2);
 }
-#searchInput.show{width:250px; opacity:1;} /* longer search bar for desktop */
+#searchInput.show{width:250px; opacity:1;}
 
 /* MENU TOGGLE */
 .menu-toggle{display:flex;flex-direction:column;cursor:pointer;gap:4px;}
-.menu-toggle span{display:block;height:3px;width:25px;background:#0ff;border-radius:2px;transition:0.3s;}
+.menu-toggle span{display:block;height:3px;width:25px;background:#00ffff;border-radius:2px;transition:0.3s;}
 .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .menu-toggle.active span:nth-child(2){opacity:0;}
 .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
@@ -68,13 +66,13 @@ a{text-decoration:none;color:inherit;}
 }
 .side-menu.show{right:0;}
 .side-menu a{
-  color:#0ff;font-weight:600;font-size:1.1rem;text-transform:uppercase;letter-spacing:1px;
+  color:#00ffff;font-weight:600;font-size:1.1rem;text-transform:uppercase;letter-spacing:1px;
   transition:0.3s;
 }
-.side-menu a:hover{color:#00dfff;}
+.side-menu a:hover{color:#0affff;}
 
 /* =========================
-   MANHWA GRID
+   MANHWA GRID (OLD UI STYLE)
 ========================= */
 .manhwa-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
@@ -91,11 +89,11 @@ a{text-decoration:none;color:inherit;}
 background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.15));pointer-events:none;}
 .card-title-overlay span{
 display:block;font-family:'Orbitron',sans-serif;font-size:0.9rem;
-letter-spacing:1px;text-transform:uppercase;color:#0ff;
+letter-spacing:1px;text-transform:uppercase;color:#00ffff;
 text-shadow:0 0 6px rgba(0,255,255,0.35),0 2px 6px rgba(0,0,0,0.9);}
 .genre-tag{
   position:absolute;top:8px;left:8px;padding:2px 6px;font-size:0.7rem;
-  background:linear-gradient(90deg,#0ff,#00dfff);color:#000;font-weight:600;border-radius:4px;
+  background:linear-gradient(90deg,#00ffff,#00dfff);color:#000;font-weight:600;border-radius:4px;
   text-transform:uppercase;box-shadow:0 0 6px rgba(0,255,255,0.3);}
 .coming-soon{opacity:0.6;pointer-events:none;}
 .lock-icon{
@@ -106,10 +104,10 @@ text-shadow:0 0 6px rgba(0,255,255,0.35),0 2px 6px rgba(0,0,0,0.9);}
 #noData{display:none;text-align:center;color:red;font-family:'Orbitron',sans-serif;font-size:1.3rem;margin-top:2rem;}
 
 /* EASTER EGG */
-#easterEggMessage{display:none;font-family:'Orbitron',sans-serif;font-size:2rem;color:#0ff;text-align:center;margin-top:2rem;
-text-shadow:0 0 15px #0ff,0 2px 10px #000;opacity:0;transform:scale(0.8);transition:all 1.5s ease;}
+#easterEggMessage{display:none;font-family:'Orbitron',sans-serif;font-size:2rem;color:#00ffff;text-align:center;margin-top:2rem;
+text-shadow:0 0 15px #00ffff,0 2px 10px #000;opacity:0;transform:scale(0.8);transition:all 1.5s ease;}
 #easterEggMessage.show{display:block;opacity:1;transform:scale(1);animation:bounceGlow 3s infinite alternate;}
-@keyframes bounceGlow{0%{transform:scale(0.95);text-shadow:0 0 8px #0ff,0 2px 6px #000;}50%{transform:scale(1.05);text-shadow:0 0 20px #0ff,0 4px 12px #000;}100%{transform:scale(1);text-shadow:0 0 12px #0ff,0 2px 6px #000;}}
+@keyframes bounceGlow{0%{transform:scale(0.95);text-shadow:0 0 8px #0fffff,0 2px 6px #000;}50%{transform:scale(1.05);text-shadow:0 0 20px #0fffff,0 4px 12px #000;}100%{transform:scale(1);text-shadow:0 0 12px #0fffff,0 2px 6px #000;}}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -122,6 +120,7 @@ text-shadow:0 0 15px #0ff,0 2px 10px #000;opacity:0;transform:scale(0.8);transit
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
     <span id="searchIcon">🔍</span>
@@ -148,7 +147,7 @@ text-shadow:0 0 15px #0ff,0 2px 10px #000;opacity:0;transform:scale(0.8);transit
 <!-- NO DATA FOUND -->
 <div id="noData">No data found!</div>
 
-<!-- EASTER EGG MESSAGE -->
+<!-- EASTER EGG -->
 <div id="easterEggMessage">I Love Thin Nadi Soe, So Much</div>
 
 <script>
