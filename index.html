@@ -1,298 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Midnight Manhwa</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Manhwa</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+<style>
+/* =========================
+   RESET & BASE
+========================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0a0a0a;color:#eee;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
 
-  <style>
-    /* =========================
-       RESET & BASE
-    ========================= */
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body { background:#0a0a0a; color:#eee; overflow-x:hidden; }
+/* =========================
+   TOP NAVBAR + HERO
+========================= */
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1rem;
+  position:sticky;top:0;background:#070707;z-index:100;
+  box-shadow:0 2px 15px rgba(0,255,255,0.1);
+}
 
-    a { text-decoration:none; color:inherit; }
+.hero-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:2.5rem;
+  background:linear-gradient(90deg,#0ff,#00dfff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px #0ff,0 2px 10px #000;
+  transition:0.3s;
+  cursor:default;
+}
 
-    /* =========================
-       NAVBAR
-    ========================= */
-    .navbar {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1rem 2rem; background:#070707;
-      position:sticky; top:0; z-index:100;
-      box-shadow:0 2px 15px rgba(0,255,255,0.1);
-    }
-    .logo img { width:40px; height:40px; filter: drop-shadow(0 0 4px #0ff); }
+.topbar-left, .topbar-right{
+  display:flex;align-items:center;gap:0.5rem;
+}
 
-    .nav-links { display:flex; gap:1.5rem; list-style:none; }
-    .nav-links li a { font-weight:500; position:relative; color:#0ff; }
-    .nav-links li a.active::after {
-      content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px;
-      background: linear-gradient(90deg, #0ff, #00dfff);
-      border-radius:2px;
-    }
+/* SEARCH ICON + MAGICAL SEARCH BAR */
+#searchIcon{
+  font-size:1.5rem;color:#0ff;cursor:pointer;
+  transition:0.3s;
+}
 
-    /* MOBILE MENU */
-    .menu-toggle { display:none; flex-direction:column; cursor:pointer; gap:5px; }
-    .menu-toggle span { display:block; height:3px; width:25px; background:#0ff; border-radius:2px; transition:0.3s; }
+#searchInput{
+  width:0; opacity:0; padding:0.5rem 1rem; border-radius:50px; border:none; outline:none;
+  background:#111; color:#0ff; transition:0.4s; margin-left:0.5rem;
+  box-shadow:0 0 8px rgba(0,255,255,0.2);
+}
+#searchInput.show{width:180px;opacity:1;}
 
-    .menu-toggle.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
-    .menu-toggle.active span:nth-child(2) { opacity:0; }
-    .menu-toggle.active span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
+/* MENU TOGGLE */
+.menu-toggle{display:flex;flex-direction:column;cursor:pointer;gap:4px;}
+.menu-toggle span{display:block;height:3px;width:25px;background:#0ff;border-radius:2px;transition:0.3s;}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
 
-    .nav-links.show { display:flex; flex-direction:column; gap:1rem; background:#070707; padding:1rem 2rem; position:absolute; top:70px; right:0; }
+/* SIDE MENU */
+.side-menu{
+  position:fixed;top:0;right:-220px;width:200px;height:100%;background:#111;
+  display:flex;flex-direction:column;padding:2rem 1rem;gap:1.5rem;transition:0.5s;
+}
+.side-menu.show{right:0;}
+.side-menu a{
+  color:#0ff;font-weight:600;font-size:1.1rem;
+  text-transform:uppercase;letter-spacing:1px;
+  transition:0.3s;
+}
+.side-menu a:hover{color:#00dfff;}
 
-    /* SEARCH BAR */
-    .search-container { position:relative; }
-    .search-container input {
-      padding:0.5rem 2.5rem 0.5rem 1rem;
-      border-radius:50px; border:none; outline:none;
-      background:#111; color:#0ff; box-shadow:0 0 8px rgba(0,255,255,0.2);
-      transition:0.3s;
-    }
-    .search-container input:focus { box-shadow:0 0 15px rgba(0,255,255,0.5); }
-    .search-container button {
-      position:absolute; top:50%; right:8px; transform:translateY(-50%);
-      background:none; border:none; cursor:pointer; color:#0ff;
-    }
+/* =========================
+   MANHWA GRID
+========================= */
+.manhwa-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:1rem;padding:2rem 1rem;
+}
+.card{
+  position:relative;overflow:hidden;border-radius:14px;
+  cursor:pointer;transition: transform 0.3s, box-shadow 0.3s;
+  background:#111;box-shadow:0 4px 12px rgba(0,255,255,0.1);
+}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;display:block;}
+.card:hover img,.card.hover img{transform:scale(1.12);}
+.card-title-overlay{position:absolute;bottom:0;left:0;right:0;padding:1rem;
+background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.15));pointer-events:none;}
+.card-title-overlay span{
+display:block;font-family:'Orbitron',sans-serif;font-size:0.9rem;
+letter-spacing:1px;text-transform:uppercase;color:#0ff;
+text-shadow:0 0 6px rgba(0,255,255,0.35),0 2px 6px rgba(0,0,0,0.9);}
+.genre-tag{
+  position:absolute;top:8px;left:8px;padding:2px 6px;font-size:0.7rem;
+  background:linear-gradient(90deg,#0ff,#00dfff);color:#000;font-weight:600;border-radius:4px;
+  text-transform:uppercase;box-shadow:0 0 6px rgba(0,255,255,0.3);}
+.coming-soon{opacity:0.6;pointer-events:none;}
+.lock-icon{
+  position:absolute;top:12px;right:12px;font-size:1.2rem;color:#fff;
+  background:rgba(0,0,0,0.6);border-radius:50%;padding:4px;text-shadow:0 0 6px rgba(0,0,0,0.8);}
 
-    /* =========================
-       HERO
-    ========================= */
-    .hero { text-align:center; padding:4rem 1rem 2rem; }
-    .hero h1 {
-      font-size:3rem; font-family:'Orbitron', sans-serif;
-      background:linear-gradient(90deg,#0ff,#00dfff);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow:0 0 15px #0ff,0 2px 10px #000;
-      animation:glowText 3s infinite alternate;
-    }
-    .hero p { font-size:1.2rem; color:#aaa; margin-top:0.5rem; }
+/* NO DATA */
+#noData{display:none;text-align:center;color:red;font-family:'Orbitron',sans-serif;font-size:1.3rem;margin-top:2rem;}
 
-    @keyframes glowText {
-      0% { text-shadow:0 0 10px #0ff,0 0 15px #00dfff; }
-      50% { text-shadow:0 0 25px #0ff,0 0 30px #00dfff; }
-      100% { text-shadow:0 0 15px #0ff,0 0 20px #00dfff; }
-    }
+/* EASTER EGG */
+#easterEggMessage{display:none;font-family:'Orbitron',sans-serif;font-size:2rem;color:#0ff;text-align:center;margin-top:2rem;
+text-shadow:0 0 15px #0ff,0 2px 10px #000;opacity:0;transform:scale(0.8);transition:all 1.5s ease;}
+#easterEggMessage.show{display:block;opacity:1;transform:scale(1);animation:bounceGlow 3s infinite alternate;}
+@keyframes bounceGlow{0%{transform:scale(0.95);text-shadow:0 0 8px #0ff,0 2px 6px #000;}50%{transform:scale(1.05);text-shadow:0 0 20px #0ff,0 4px 12px #000;}100%{transform:scale(1);text-shadow:0 0 12px #0ff,0 2px 6px #000;}}
 
-    /* =========================
-       MANHWA GRID
-    ========================= */
-    .manhwa-grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-      gap:1rem; padding:2rem 1rem;
-    }
-    .card {
-      position:relative; overflow:hidden; border-radius:14px;
-      cursor:pointer; transition: transform 0.3s, box-shadow 0.3s;
-      background:#111; box-shadow:0 4px 12px rgba(0,255,255,0.1);
-    }
-    .card img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; display:block; }
-    .card:hover img, .card.hover img { transform:scale(1.12); }
-
-    /* CARD OVERLAY */
-    .card-title-overlay {
-      position:absolute; bottom:0; left:0; right:0; padding:1rem;
-      background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.15));
-      pointer-events:none;
-    }
-    .card-title-overlay span {
-      display:block; font-family:'Orbitron', sans-serif; font-size:0.9rem;
-      letter-spacing:1px; text-transform:uppercase; color:#0ff;
-      text-shadow:0 0 6px rgba(0,255,255,0.35),0 2px 6px rgba(0,0,0,0.9);
-    }
-
-    /* GENRE TAG */
-    .genre-tag {
-      position:absolute; top:8px; left:8px; padding:2px 6px;
-      font-size:0.7rem; background:linear-gradient(90deg,#0ff,#00dfff);
-      color:#000; font-weight:600; border-radius:4px; text-transform:uppercase;
-      box-shadow:0 0 6px rgba(0,255,255,0.3);
-    }
-
-    /* LOCKED CARD */
-    .coming-soon { opacity:0.6; pointer-events:none; }
-    .lock-icon {
-      position:absolute; top:12px; right:12px;
-      font-size:1.2rem; color:#fff;
-      background:rgba(0,0,0,0.6); border-radius:50%; padding:4px;
-      text-shadow:0 0 6px rgba(0,0,0,0.8);
-    }
-
-    /* =========================
-       NO DATA FOUND
-    ========================= */
-    #noData { display:none; text-align:center; color:red; font-family:'Orbitron', sans-serif; font-size:1.3rem; margin-top:2rem; }
-
-    /* =========================
-       EASTER EGG
-    ========================= */
-    #easterEggMessage {
-      display:none; font-family:'Orbitron', sans-serif;
-      font-size:2rem; color:#0ff; text-align:center; margin-top:2rem;
-      text-shadow:0 0 15px #0ff,0 2px 10px #000; opacity:0; transform:scale(0.8);
-      transition:all 1.5s ease;
-    }
-    #easterEggMessage.show {
-      display:block; opacity:1; transform:scale(1);
-      animation:bounceGlow 3s infinite alternate;
-    }
-    @keyframes bounceGlow {
-      0% { transform:scale(0.95); text-shadow:0 0 8px #0ff,0 2px 6px #000; }
-      50% { transform:scale(1.05); text-shadow:0 0 20px #0ff,0 4px 12px #000; }
-      100% { transform:scale(1); text-shadow:0 0 12px #0ff,0 2px 6px #000; }
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-    @media(max-width:768px){
-      .hero h1 { font-size:2rem; }
-      .hero p { font-size:1rem; }
-      .nav-links { display:none; }
-      .menu-toggle { display:flex; }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero-title{font-size:2rem;}
+  .manhwa-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+}
+</style>
 </head>
 <body>
-<div class="app">
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo"><img src="favicon.ico" alt="Midnight Manhwa Logo"></div>
-
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search..." />
-      <button type="button" id="searchButton">
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path fill="currentColor"
-            d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l4.2 4.2a1 1 0 0 0 1.4-1.4L15.5 14zM10 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-        </svg>
-      </button>
-    </div>
-
+<div class="topbar">
+  <div class="topbar-left">
+    <span id="searchIcon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search...">
+  </div>
+  <div class="hero-title">Midnight Manhwa</div>
+  <div class="topbar-right">
     <div class="menu-toggle" id="menuToggle">
-      <span></span><span class="middle"></span><span></span>
+      <span></span><span></span><span></span>
     </div>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="#">Genres</a></li>
-      <li><a href="#">About</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Midnight Manhwa</h1>
-    <p>Read dark fantasy, action, and mystery manhwa.</p>
-  </section>
-
-  <!-- MANHWA GRID -->
-  <section class="manhwa-grid" id="manhwaGrid"></section>
-
-  <!-- NO DATA FOUND -->
-  <div id="noData">No data found!</div>
-
-  <!-- EASTER EGG MESSAGE -->
-  <div id="easterEggMessage">I Love Thin Nadi Soe, So Much</div>
-
+  </div>
 </div>
 
+<!-- SIDE MENU -->
+<div class="side-menu" id="sideMenu">
+  <a href="#">Home</a>
+  <a href="#">Genres</a>
+  <a href="#">About</a>
+</div>
+
+<!-- MANHWA GRID -->
+<section class="manhwa-grid" id="manhwaGrid"></section>
+
+<!-- NO DATA FOUND -->
+<div id="noData">No data found!</div>
+
+<!-- EASTER EGG MESSAGE -->
+<div id="easterEggMessage">I Love Thin Nadi Soe, So Much</div>
+
 <script>
-  // MOBILE NAV
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
-  menuToggle.addEventListener("click", () => {
-    menuToggle.classList.toggle("active");
-    navLinks.classList.toggle("show");
+const menuToggle = document.getElementById("menuToggle");
+const sideMenu = document.getElementById("sideMenu");
+menuToggle.addEventListener("click",()=>{menuToggle.classList.toggle("active");sideMenu.classList.toggle("show");});
+
+const searchIcon=document.getElementById("searchIcon");
+const searchInput=document.getElementById("searchInput");
+searchIcon.addEventListener("click",()=>{searchInput.classList.toggle("show");searchInput.focus();});
+
+const manhwaGrid=document.getElementById("manhwaGrid");
+const noData=document.getElementById("noData");
+const easterEggMessage=document.getElementById("easterEggMessage");
+let manhwaData=[];
+
+fetch('Json/manhwa.json')
+  .then(resp=>resp.json())
+  .then(data=>{manhwaData=data;renderManhwaCards(manhwaData);})
+  .catch(err=>{console.error('Failed to load manhwa.json',err);noData.style.display='block';});
+
+function renderManhwaCards(data){
+  manhwaGrid.innerHTML='';
+  if(data.length===0){noData.style.display='block';}else{noData.style.display='none';}
+  data.forEach(item=>{
+    const card=document.createElement(item.locked?'div':'a');
+    card.className='card'+(item.locked?' coming-soon':' manhwa-link');
+    if(!item.locked)card.href=item.link;
+
+    const img=document.createElement('img'); img.src=item.image; img.alt=item.title; card.appendChild(img);
+
+    const genreTag=document.createElement('span'); genreTag.className='genre-tag'; genreTag.textContent=item.genre; card.appendChild(genreTag);
+
+    if(item.locked){const lock=document.createElement('span'); lock.className='lock-icon'; lock.textContent='🔒'; card.appendChild(lock);}
+
+    const overlay=document.createElement('div'); overlay.className='card-title-overlay';
+    const span=document.createElement('span'); span.textContent=item.title; overlay.appendChild(span); card.appendChild(overlay);
+
+    manhwaGrid.appendChild(card);
+
+    if(!item.locked){let tapped=false; card.addEventListener('click',e=>{if(!tapped){e.preventDefault();tapped=true;card.classList.add('hover');setTimeout(()=>{tapped=false;card.classList.remove('hover');},900);}});}
   });
+}
 
-  const manhwaGrid = document.getElementById("manhwaGrid");
-  const noData = document.getElementById("noData");
-  const easterEggMessage = document.getElementById('easterEggMessage');
-  let manhwaData = [];
+searchInput.addEventListener('input',()=>{
+  const query=searchInput.value.trim();
+  if(query==="Swt & Tnds") easterEggMessage.classList.add('show');
+  else easterEggMessage.classList.remove('show');
 
-  // =========================
-  // LOAD MANHWA.JSON DYNAMICALLY
-  // =========================
-  fetch('Json/manhwa.json')
-    .then(response => response.json())
-    .then(data => {
-      manhwaData = data;
-      renderManhwaCards(manhwaData);
-    })
-    .catch(err => {
-      console.error('Failed to load manhwa.json', err);
-      noData.style.display = 'block';
-    });
-
-  // =========================
-  // RENDER CARDS
-  // =========================
-  function renderManhwaCards(data){
-    manhwaGrid.innerHTML = '';
-    if(data.length===0){ noData.style.display='block'; } 
-    else{ noData.style.display='none'; }
-
-    data.forEach(item=>{
-      const card=document.createElement(item.locked?'div':'a');
-      card.className='card'+(item.locked?' coming-soon':' manhwa-link');
-      if(!item.locked) card.href=item.link;
-
-      const img=document.createElement('img'); img.src=item.image; img.alt=item.title; card.appendChild(img);
-
-      // GENRE TAG
-      const genreTag=document.createElement('span');
-      genreTag.className='genre-tag'; genreTag.textContent=item.genre;
-      card.appendChild(genreTag);
-
-      // LOCK ICON
-      if(item.locked){
-        const lock=document.createElement('span');
-        lock.className='lock-icon'; lock.textContent='🔒';
-        card.appendChild(lock);
-      }
-
-      // TITLE OVERLAY
-      const overlay=document.createElement('div');
-      overlay.className='card-title-overlay';
-      const span=document.createElement('span'); span.textContent=item.title;
-      overlay.appendChild(span); card.appendChild(overlay);
-
-      manhwaGrid.appendChild(card);
-
-      // CLICK HOVER ANIMATION
-      if(!item.locked){
-        let tapped=false;
-        card.addEventListener('click',e=>{
-          if(!tapped){ e.preventDefault(); tapped=true; card.classList.add('hover');
-            setTimeout(()=>{ tapped=false; card.classList.remove('hover'); },900);
-          }
-        });
-      }
-    });
-  }
-
-  // =========================
-  // SEARCH + EASTER EGG
-  // =========================
-  const searchInput=document.getElementById('searchInput');
-
-  searchInput.addEventListener('input',()=>{
-    const query=searchInput.value.trim();
-    if(query==="Swt & Tnds") easterEggMessage.classList.add('show');
-    else easterEggMessage.classList.remove('show');
-
-    const lowerQuery=query.toLowerCase();
-    const filtered=manhwaData.filter(item=>item.title.toLowerCase().includes(lowerQuery));
-    renderManhwaCards(filtered);
-  });
-
+  const lowerQuery=query.toLowerCase();
+  const filtered=manhwaData.filter(item=>item.title.toLowerCase().includes(lowerQuery));
+  renderManhwaCards(filtered);
+});
 </script>
 </body>
 </html>
